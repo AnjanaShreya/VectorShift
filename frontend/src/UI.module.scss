@@ -1,0 +1,74 @@
+@import './styles/variables';
+
+.wrap {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: $background;
+  border-top: 1px solid $border;
+}
+
+.canvas {
+  flex: 1;
+  min-height: 0;
+  background: transparent;
+
+  :global {
+    .react-flow__background path {
+      stroke: hsla(var(--canvas-dot) / 0.1) !important;
+    }
+
+    .react-flow__controls {
+      box-shadow: none;
+      border-radius: $radius-sm;
+      border: 1px solid $border;
+      overflow: hidden;
+    }
+
+    .react-flow__controls-button {
+      background: $card;
+      border-bottom: 1px solid $border;
+      fill: $muted-foreground;
+      &:hover {
+        fill: $primary;
+      }
+    }
+
+    .react-flow__minimap {
+      border-radius: $radius-lg;
+      border: 1px solid $border;
+      background: $card;
+      box-shadow: none;
+    }
+
+    .react-flow__edge-path {
+      stroke: hsl(var(--edge-default)) !important;
+      stroke-width: 2;
+    }
+
+    .react-flow__edge.animated path {
+      stroke: hsl(var(--edge-active)) !important;
+    }
+
+    .react-flow__connectionline path {
+      stroke: $primary;
+      stroke-width: 2;
+    }
+
+    .react-flow__handle {
+      width: 8px !important;
+      height: 8px !important;
+      min-width: 8px !important;
+      min-height: 8px !important;
+      background: $card !important;
+      border: 2px solid $border !important;
+      border-radius: 50% !important;
+
+      &:hover {
+        border-color: $primary !important;
+      }
+    }
+  }
+}

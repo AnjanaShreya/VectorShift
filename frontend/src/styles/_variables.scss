@@ -1,0 +1,99 @@
+// _variables.scss — New HSL Design System
+
+:root {
+  // Main System Colors
+  --background: 220 15% 8%;
+  --foreground: 210 20% 90%;
+  --card: 220 15% 12%;
+  --card-foreground: 210 20% 90%;
+  --popover: 220 15% 14%;
+  --popover-foreground: 210 20% 90%;
+  --primary: 190 90% 50%;
+  --primary-foreground: 220 15% 8%;
+  --secondary: 220 15% 16%;
+  --secondary-foreground: 210 20% 80%;
+  --muted: 220 15% 16%;
+  --muted-foreground: 215 15% 55%;
+  --accent: 190 90% 50%;
+  --accent-foreground: 220 15% 8%;
+  --destructive: 0 80% 55%;
+  --destructive-foreground: 210 20% 95%;
+  --border: 220 15% 20%;
+  --input: 220 15% 18%;
+  --ring: 190 90% 50%;
+  --success: 150 80% 40%;
+  --warning: 40 90% 55%;
+
+  // DAG-Specific
+  --node-bg: 220 15% 12%;
+  --node-border: 220 15% 22%;
+  --node-rim: 220 15% 28%;
+  --canvas-dot: 220 15% 18%;
+  --edge-default: 220 15% 25%;
+  --edge-active: 150 80% 40%;
+
+  // Sidebar
+  --sidebar-background: 220 15% 6%;
+  --sidebar-foreground: 210 20% 80%;
+  --sidebar-primary: 190 90% 50%;
+  --sidebar-primary-foreground: 220 15% 8%;
+  --sidebar-accent: 220 15% 14%;
+  --sidebar-accent-foreground: 210 20% 80%;
+  --sidebar-border: 220 15% 16%;
+  --sidebar-ring: 190 90% 50%;
+
+  // Radius
+  --radius: 0.375rem; 
+}
+
+// SCSS Color Mappings
+$background: hsl(var(--background));
+$foreground: hsl(var(--foreground));
+$card: hsl(var(--card));
+$card-foreground: hsl(var(--card-foreground));
+$primary: hsl(var(--primary));
+$primary-foreground: hsl(var(--primary-foreground));
+$secondary: hsl(var(--secondary));
+$secondary-foreground: hsl(var(--secondary-foreground));
+$muted: hsl(var(--muted));
+$muted-foreground: hsl(var(--muted-foreground));
+$accent: hsl(var(--accent));
+$accent-foreground: hsl(var(--accent-foreground));
+$destructive: hsl(var(--destructive));
+$destructive-foreground: hsl(var(--destructive-foreground));
+$border: hsl(var(--border));
+$input: hsl(var(--input));
+$ring: hsl(var(--ring));
+$success: hsl(var(--success));
+$warning: hsl(var(--warning));
+
+// Node Variants
+$color-input: hsl(142 71% 45%); // Green
+$color-llm: hsl(330 81% 60%);   // Pink
+$color-output: hsl(0 84% 60%);  // Red
+$color-text: hsl(24 95% 53%);   // Orange
+$color-merge: hsl(262 83% 58%);  // Violet
+$color-split: hsl(221 83% 53%);  // Blue
+$color-delay: hsl(48 96% 53%);   // Yellow
+$color-addition: hsl(252 78% 81%); // Lavender
+
+// Sizing & Radius
+$radius: var(--radius);
+$radius-sm: calc(var(--radius) - 4px);
+$radius-md: calc(var(--radius) - 2px);
+$radius-lg: var(--radius);
+
+$node-min-width: 220px;
+$node-padding: 16px;
+$node-radius: 8px;
+$node-control-height: 36px;
+
+// Typography
+$font-sans: 'Inter', -apple-system, system-ui, sans-serif;
+$font-mono: 'JetBrains Mono', monospace;
+
+// Effects
+$glass-blur: blur(12px);
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+$shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+$shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6);

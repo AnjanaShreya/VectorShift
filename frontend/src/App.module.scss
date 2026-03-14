@@ -1,0 +1,47 @@
+@import './styles/variables';
+
+.appShell {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: $background;
+  color: $foreground;
+  font-family: $font-sans;
+}
+
+.header {
+  flex-shrink: 0;
+  padding: 12px 24px;
+  background: hsl(var(--sidebar-background));
+  border-bottom: 1px solid $border;
+  position: relative;
+  z-index: 10;
+
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: $foreground;
+    margin-bottom: 4px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: $muted-foreground;
+    font-weight: 500;
+  }
+}
+
+.tooltip {
+  font-size: 12px;
+  width: fit-content;
+  color: $foreground;
+  background: $card;
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  padding: 10px 14px;
+  box-shadow: none;
+}

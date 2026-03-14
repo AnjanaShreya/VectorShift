@@ -1,0 +1,44 @@
+@import './styles/variables';
+
+.submitBar {
+  flex-shrink: 0;
+  padding: 12px 20px;
+  background: $background;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btnSubmit {
+  background: $primary;
+  color: $primary-foreground;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 20px hsla(var(--primary) / 0.3);
+
+  &:hover:not(:disabled) {
+    background: $primary;
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px hsla(var(--primary) / 0.5);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.96);
+  }
+
+  &:disabled {
+    background: $muted;
+    color: $muted-foreground;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}

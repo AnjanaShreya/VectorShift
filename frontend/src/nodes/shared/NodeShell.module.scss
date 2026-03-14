@@ -1,0 +1,217 @@
+@import '../../styles/variables';
+
+.nodeShell {
+  width: $node-min-width;
+  min-width: $node-min-width;
+  min-height: 100px;
+  box-sizing: border-box;
+  padding: $node-padding;
+  border-radius: $radius;
+  background: $card;
+  backdrop-filter: $glass-blur;
+  border: 1px solid $border;
+  box-shadow: $shadow-sm;
+  color: $foreground;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow: visible;
+  position: relative;
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    border-color: hsl(var(--node-rim));
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 15%;
+    bottom: 15%;
+    width: 4px;
+    border-radius: 0 4px 4px 0;
+    background: $primary;
+    transition: background 0.2s ease;
+  }
+}
+
+.hint {
+  font-size: 11px;
+  color: $muted-foreground;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.selected {
+  box-shadow: 0 0 0 2px hsla(var(--primary) / 0.3) !important;
+  border-color: $primary !important;
+}
+
+// Variants
+.input {
+  &::before { background: $color-input; }
+}
+
+.output {
+  &::before { background: $color-output; }
+}
+
+.llm {
+  &::before { background: $color-llm; }
+}
+
+.text {
+  &::before { background: $color-text; }
+}
+
+.merge {
+  &::before { background: $color-merge; }
+}
+
+.split {
+  &::before { background: $color-split; }
+}
+
+.delay {
+  &::before { background: $color-delay; }
+}
+
+.addition {
+  &::before { background: $color-addition; }
+}
+
+.title {
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: -4px 0 16px;
+  padding-bottom: 0;
+  border-bottom: none;
+  color: $muted-foreground;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+  span:last-of-type {
+    flex: 1;
+    color: $foreground;
+  }
+}
+
+.deleteButton {
+  background: transparent;
+  border: none;
+  color: $muted-foreground;
+  cursor: pointer;
+  font-size: 10px;
+  line-height: 1;
+  padding: 4px;
+  margin-right: -2px;
+  border-radius: $radius-sm;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: $destructive;
+    background: hsla(var(--destructive) / 0.1);
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: inherit;
+  font-size: 14px;
+}
+
+// --- Icons / Titles per variant ---
+.input .title .icon { color: $color-input; }
+.llm .title .icon { color: $color-llm; }
+.output .title .icon { color: $color-output; }
+.text .title .icon { color: $color-text; }
+.merge .title .icon { color: $color-merge; }
+.split .title .icon { color: $color-split; }
+.delay .title .icon { color: $color-delay; }
+.addition .title .icon { color: $color-addition; }
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $muted-foreground;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 70px;
+  padding: 10px 12px;
+  border-radius: $radius-sm;
+  border: 1px solid $border;
+  background: $input;
+  color: $foreground;
+  font-size: 13px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  resize: vertical;
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    background: hsla(var(--secondary) / 0.5);
+  }
+}
+
+.inputControl,
+.selectControl {
+  width: 100%;
+  height: $node-control-height;
+  padding: 0 12px;
+  border-radius: $radius-sm;
+  border: 1px solid $border;
+  background: $input;
+  color: $foreground;
+  font-size: 13px;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    background: hsla(var(--secondary) / 0.5);
+  }
+}
+
+.selectControl {
+  padding-right: 32px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}

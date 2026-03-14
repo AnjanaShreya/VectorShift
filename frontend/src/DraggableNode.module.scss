@@ -1,0 +1,51 @@
+@import './styles/variables';
+
+.node {
+  cursor: grab;
+  padding: 10px 18px;
+  background: $input;
+  border: 1px solid $border;
+  border-radius: 6px;
+  color: $foreground;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    background: $secondary;
+    border-color: $border;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    cursor: grabbing;
+    transform: scale(0.96);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: $primary;
+  }
+}
+
+// Variant accent bits
+.customInput::before { background: $color-input; }
+.customOutput::before { background: $color-output; }
+.llm::before { background: $color-llm; }
+.text::before { background: $color-text; }
+.merge::before { background: $color-merge; }
+.split::before { background: $color-split; }
+.addition::before { background: $color-addition; }
+.knowledgeBase::before { background: $color-input; }

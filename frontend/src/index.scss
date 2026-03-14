@@ -1,0 +1,76 @@
+@import './styles/variables';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: $font-sans;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: $background;
+  color: $foreground;
+}
+
+code {
+  font-family: $font-mono;
+}
+
+// Utilities
+.canvas-grid {
+  background-image: radial-gradient(hsl(var(--canvas-dot)) 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+.node-glow {
+  box-shadow: 0 0 15px 2px hsla(var(--primary) / 0.3);
+}
+
+.node-shadow {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.edge-pulse {
+  stroke-dasharray: 5;
+  animation: dash-flow 1s linear infinite;
+}
+
+.port-glow {
+  animation: port-pulse 2s ease-in-out infinite;
+}
+
+// Animations
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+@keyframes dash-flow {
+  from { stroke-dashoffset: 10; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes port-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 hsla(var(--primary) / 0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 4px hsla(var(--primary) / 0);
+    transform: scale(1.1);
+  }
+}

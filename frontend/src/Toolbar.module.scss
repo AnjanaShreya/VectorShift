@@ -1,0 +1,25 @@
+@import './styles/variables';
+
+.toolbar {
+  flex-shrink: 0;
+  padding: 12px 24px;
+  background: hsl(var(--sidebar-background));
+  border-bottom: 1px solid $border;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: $muted-foreground;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
