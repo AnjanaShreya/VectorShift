@@ -1,7 +1,7 @@
 import shellStyles from './shared/NodeShell.module.scss';
 import { useState } from 'react';
 import { NodeShell } from './shared/nodeShell';
-import { PipelineHandle, HandlePresets } from './shared/nodeHandles';
+import { SourceHandle } from './shared/nodeHandles';
 import { useStore } from '../store';
 
 export const InputNode = ({ id, data }) => {
@@ -40,7 +40,7 @@ export const InputNode = ({ id, data }) => {
           </select>
         </div>
       </div>
-      <PipelineHandle nodeId={id} spec={HandlePresets.rightSource('value')} />
+      <SourceHandle nodeId={id} suffix="value" />
     </NodeShell>
   );
 };

@@ -1,7 +1,7 @@
 import shellStyles from './shared/NodeShell.module.scss';
 import { useState } from 'react';
 import { NodeShell } from './shared/nodeShell';
-import { PipelineHandle, HandlePresets } from './shared/nodeHandles';
+import { TargetHandle, SourceHandle } from './shared/nodeHandles';
 import { useStore } from '../store';
 
 export const KnowledgeBaseNode = ({ id, data }) => {
@@ -22,7 +22,7 @@ export const KnowledgeBaseNode = ({ id, data }) => {
 
   return (
     <NodeShell id={id} title="KNOWLEDGE BASE" icon="📚" variant="input">
-      <PipelineHandle nodeId={id} spec={HandlePresets.leftTarget('query')} />
+      <TargetHandle nodeId={id} suffix="query" />
       <div className={shellStyles.body}>
         <div className={shellStyles.field}>
           <span className={shellStyles.label}>Name</span>
@@ -46,7 +46,7 @@ export const KnowledgeBaseNode = ({ id, data }) => {
           />
         </div>
       </div>
-      <PipelineHandle nodeId={id} spec={HandlePresets.rightSource('results')} />
+      <SourceHandle nodeId={id} suffix="results" />
     </NodeShell>
   );
 };

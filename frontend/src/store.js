@@ -48,11 +48,6 @@ export const useStore = create((set, get) => ({
         edges: addEdge({...connection, type: 'smoothstep', animated: true, markerEnd: {type: MarkerType.Arrow, height: '20px', width: '20px'}}, get().edges),
       });
     },
-    onEdgeUpdate: (oldEdge, newConnection) => {
-      set({
-        edges: updateEdge(oldEdge, newConnection, get().edges),
-      });
-    },
     updateNodeField: (nodeId, fieldName, fieldValue) => {
       set({
         nodes: get().nodes.map((node) =>

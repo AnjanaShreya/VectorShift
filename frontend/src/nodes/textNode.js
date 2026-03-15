@@ -1,7 +1,8 @@
 import textStyles from './TextNode.module.scss';
-import { useState, useRef, useEffect, useCallback, useMemo, useLayoutEffect } from 'react';
-import { Handle, Position } from 'reactflow';
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import { useUpdateNodeInternals } from 'reactflow';
 import { NodeShell } from './shared/nodeShell';
+import { TargetHandle, SourceHandle } from './shared/nodeHandles';
 import { useStore } from '../store';
 
 /** Valid JS identifier inside {{ ... }} (ASCII subset) */
@@ -27,48 +28,22 @@ const MIN_WIDTH = 240;
 const MAX_WIDTH = 560;
 const MIN_TEXT_HEIGHT = 72;
 const MAX_TEXT_HEIGHT = 320;
-const LINE_HEIGHT = 18;
 
 export const TextNode = ({ id, data }) => {
   const updateNodeField = useStore((s) => s.updateNodeField);
+  const updateNodeInternals = useUpdateNodeInternals();
   const [currText, setCurrText] = useState(data?.text ?? '{{input}}');
   const textareaRef = useRef(null);
   const [boxSize, setBoxSize] = useState({ width: MIN_WIDTH, height: MIN_TEXT_HEIGHT });
 
-  // wrapRef is the positioning context for all Handle components.
-  // rowRefs maps variable name → its DOM row element so we can measure center Y.
   const wrapRef = useRef(null);
-  const rowRefs = useRef({});
-  const [handleTops, setHandleTops] = useState({});
-
   const variables = useMemo(() => parseTemplateVariables(currText), [currText]);
 
-  // After every render that could change layout, measure each variable row's
-  // center Y relative to the wrapper.
-  // Uses offsetTop (CSS layout coordinates) instead of getBoundingClientRect
-  // so handle positions are correct at any ReactFlow zoom level.
-  const measureHandleTops = useCallback(() => {
-    const wrap = wrapRef.current;
-    if (!wrap) return;
-    const tops = {};
-    variables.forEach((name) => {
-      const row = rowRefs.current[name];
-      if (!row) return;
-      // Accumulate offsetTop up the offsetParent chain until we reach wrap.
-      let el = row;
-      let top = el.offsetTop + el.offsetHeight / 2;
-      while (el.offsetParent && el.offsetParent !== wrap) {
-        el = el.offsetParent;
-        top += el.offsetTop;
-      }
-      tops[name] = top;
-    });
-    setHandleTops(tops);
-  }, [variables]);
-
-  useLayoutEffect(() => {
-    measureHandleTops();
-  }, [variables, boxSize, measureHandleTops]);
+  // When variables (connection handles) change, tell React Flow to recompute handle bounds.
+  // Otherwise the newly added handle is not in the connection lookup and won't accept drops.
+  useEffect(() => {
+    updateNodeInternals(id);
+  }, [id, variables, updateNodeInternals]);
 
   const resizeToContent = useCallback(() => {
     const el = textareaRef.current;
@@ -97,21 +72,18 @@ export const TextNode = ({ id, data }) => {
   };
 
   return (
-    // wrapRef is the CSS positioning context for all Handle components.
-    // Target handles are rendered AFTER NodeShell so they sit above it in the
-    // stacking order — NodeShell's backdrop-filter creates a stacking context
-    // that would otherwise intercept pointer events on handles rendered before it.
     <div ref={wrapRef} style={{ position: 'relative', width: boxSize.width }}>
-
       <NodeShell id={id} title="TEXT" icon="📄" variant="text" style={{ width: '100%' }}>
         {variables.length > 0 && (
           <div className={textStyles.variablesList}>
             {variables.map((name) => (
-              <div
-                key={name}
-                ref={(el) => { rowRefs.current[name] = el; }}
-                className={textStyles.variableRow}
-              >
+              <div key={name} className={textStyles.variableRow}>
+                <TargetHandle
+                  nodeId={id}
+                  suffix={name}
+                  style={{ background: 'hsl(24 95% 53%)' }}
+                  className={textStyles.connectionHandle}
+                />
                 <span className={textStyles.variableDot} />
                 <span className={textStyles.variableLabel}>{name}</span>
               </div>
@@ -134,32 +106,14 @@ export const TextNode = ({ id, data }) => {
               maxHeight: MAX_TEXT_HEIGHT,
               resize: 'vertical',
               boxSizing: 'border-box',
-              lineHeight: `${LINE_HEIGHT}px`,
             }}
           />
         </div>
       </NodeShell>
 
-      {/* Rendered after NodeShell so they sit above its stacking context */}
-      {variables.map((name) => (
-        <Handle
-          key={name}
-          type="target"
-          position={Position.Left}
-          id={`${id}-${name}`}
-          isConnectable={true}
-          style={{
-            top: handleTops[name] !== undefined ? handleTops[name] : '50%',
-            background: 'hsl(24 95% 53%)',
-          }}
-        />
-      ))}
-
-      <Handle
-        type="source"
-        position={Position.Right}
-        id={`${id}-output`}
-        isConnectable={true}
+      <SourceHandle
+        nodeId={id}
+        suffix="output"
         style={{ background: 'hsl(24 95% 53%)' }}
       />
     </div>

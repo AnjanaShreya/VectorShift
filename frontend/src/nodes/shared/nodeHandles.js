@@ -1,37 +1,35 @@
 import { Handle, Position } from 'reactflow';
 
 /**
- * Declarative handle spec:
- * - type: 'source' | 'target'
- * - position: Position.Left | Position.Right | ...
- * - idSuffix: appended to node id as `${id}-${idSuffix}` (React Flow handle id)
- * - style: optional inline style (e.g. { top: '33%' })
- * - label: optional, for documentation (not rendered unless we add labels later)
+ * TargetHandle — left-side input connection point
+ * @param {string} nodeId  - the node's id
+ * @param {string} suffix  - appended to nodeId: "{nodeId}-{suffix}"
+ * @param {object} [style] - optional inline style (e.g. { top: '35%' })
+ * @param {string} [className]- optional CSS class
  */
-export function PipelineHandle({ nodeId, spec }) {
-  const { type, position, idSuffix, style } = spec;
-  return (
-    <Handle
-      type={type}
-      position={position}
-      id={idSuffix ? `${nodeId}-${idSuffix}` : `${nodeId}-default`}
-      style={style} 
-    />
-  );
-}
+export const TargetHandle = ({ nodeId, suffix, style, className }) => (
+  <Handle
+    type="target"
+    position={Position.Left}
+    id={`${nodeId}-${suffix}`}
+    style={style}
+    className={className}
+  />
+);
 
-/** Preset handle spec factories — avoids repeating Position + type in every node file */
-export const HandlePresets = {
-  leftTarget: (idSuffix, style) => ({
-    type: 'target',
-    position: Position.Left,
-    idSuffix,
-    style,
-  }),
-  rightSource: (idSuffix, style) => ({
-    type: 'source',
-    position: Position.Right,
-    idSuffix,
-    style,
-  }),
-};
+/**
+ * SourceHandle — right-side output connection point
+ * @param {string} nodeId     - the node's id
+ * @param {string} suffix     - appended to nodeId: "{nodeId}-{suffix}"
+ * @param {object} [style]    - optional inline style (e.g. { top: '65%' })
+ * @param {string} [className]- optional CSS class
+ */
+export const SourceHandle = ({ nodeId, suffix, style, className }) => (
+  <Handle
+    type="source"
+    position={Position.Right}
+    id={`${nodeId}-${suffix}`}
+    style={style}
+    className={className}
+  />
+);

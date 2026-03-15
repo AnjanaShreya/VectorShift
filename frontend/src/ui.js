@@ -45,33 +45,6 @@ export const PipelineUI = () => {
   const onNodesChange = useStore((s) => s.onNodesChange);
   const onEdgesChange = useStore((s) => s.onEdgesChange);
   const onConnect = useStore((s) => s.onConnect);
-  const onEdgeUpdate = useStore((s) => s.onEdgeUpdate);
-
-  // Tracks whether a reconnect drag landed on a valid handle.
-  // If the user drops on empty space the edge is removed, not snapped back.
-  const edgeUpdateSuccessful = useRef(true);
-
-  const onEdgeUpdateStart = useCallback(() => {
-    edgeUpdateSuccessful.current = false;
-  }, []);
-
-  const handleEdgeUpdate = useCallback(
-    (oldEdge, newConnection) => {
-      edgeUpdateSuccessful.current = true;
-      onEdgeUpdate(oldEdge, newConnection);
-    },
-    [onEdgeUpdate]
-  );
-
-  const onEdgeUpdateEnd = useCallback(
-    (_, edge) => {
-      if (!edgeUpdateSuccessful.current) {
-        onEdgesChange([{ id: edge.id, type: 'remove' }]);
-      }
-      edgeUpdateSuccessful.current = true;
-    },
-    [onEdgesChange]
-  );
 
   const getInitNodeData = (type) => ({
     nodeType: `${type}`,
@@ -132,9 +105,6 @@ export const PipelineUI = () => {
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
-                onEdgeUpdate={handleEdgeUpdate}
-                onEdgeUpdateStart={onEdgeUpdateStart}
-                onEdgeUpdateEnd={onEdgeUpdateEnd}
                 onDrop={onDrop}
                 onDragOver={onDragOver}
                 onInit={setReactFlowInstance}

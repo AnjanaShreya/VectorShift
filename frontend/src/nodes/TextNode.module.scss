@@ -8,11 +8,18 @@
 }
 
 .variableRow {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 3px 0;
-  min-height: 24px;
+}
+
+.connectionHandle {
+  position: absolute !important;
+  left: -22px !important; 
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  margin: 0 !important;
 }
 
 .variableDot {

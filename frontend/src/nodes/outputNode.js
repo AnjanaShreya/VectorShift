@@ -1,7 +1,7 @@
 import shellStyles from './shared/NodeShell.module.scss';
 import { useState } from 'react';
 import { NodeShell } from './shared/nodeShell';
-import { PipelineHandle, HandlePresets } from './shared/nodeHandles';
+import { TargetHandle } from './shared/nodeHandles';
 import { useStore } from '../store';
 
 export const OutputNode = ({ id, data }) => {
@@ -11,7 +11,7 @@ export const OutputNode = ({ id, data }) => {
 
   return (
     <NodeShell id={id} title="OUTPUT" icon="⬆️" variant="output">
-      <PipelineHandle nodeId={id} spec={HandlePresets.leftTarget('value')} />
+      <TargetHandle nodeId={id} suffix="value" />
       <div className={shellStyles.body}>
         <div className={shellStyles.field}>
           <span className={shellStyles.label}>Name</span>
